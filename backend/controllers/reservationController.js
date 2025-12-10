@@ -1,41 +1,42 @@
 const Reservation = require("../models/Reservation");
 
-// GET /catways/:id/reservations
 exports.getReservations = async (req, res) => {
-  const reservations = await Reservation.find({ catwayNumber: req.params.id });
+  const reservations = await Reservation.find({ catwayNumber: req.params.catwayNumber });
   res.json(reservations);
 };
 
-// GET /catways/:id/reservations/:idReservation
-exports.getReservationById = async (req, res) => {
-  const reservation = await Reservation.findById(req.params.idReservation);
-  if (reservation) res.json(reservation);
-  else res.status(404).json({ message: "Réservation non trouvée" });
-};
-
-// POST /catways/:id/reservations
-exports.createReservation = async (req, res) => {
-  const reservation = new Reservation({
-    catwayNumber: req.params.id,
-    ...req.body
+exports.getReservation = async (req, res) => {
+  const reservation = await Reservation.findOne({
+    _id: req.params.idReservation,
+    catwayNumber: req.params.catwayNumber
   });
-  await reservation.save();
-  res.status(201).json({ message: "Réservation créée" });
+  if (!reservation)
+    return res.status(404).json({ message: "Réservation non trouvée" });
+
+  res.json(reservation);
 };
 
-// PUT /catways/:id/reservations/:idReservation
+exports.createReservation = async (req, res) => {
+  const reservation = await Reservation.create({
+    ...req.body,
+    catwayNumber: req.params.catwayNumber
+  });
+  res.json(reservation);
+};
+
 exports.updateReservation = async (req, res) => {
-  const reservation = await Reservation.findById(req.params.idReservation);
-  if (!reservation) return res.status(404).json({ message: "Réservation non trouvée" });
-
-  Object.assign(reservation, req.body);
-  await reservation.save();
-  res.json({ message: "Réservation mise à jour" });
+  const reservation = await Reservation.findOneAndUpdate(
+    { _id: req.params.idReservation, catwayNumber: req.params.catwayNumber },
+    req.body,
+    { new: true }
+  );
+  res.json(reservation);
 };
 
-// DELETE /catways/:id/reservations/:idReservation
 exports.deleteReservation = async (req, res) => {
-  const reservation = await Reservation.findByIdAndDelete(req.params.idReservation);
-  if (reservation) res.json({ message: "Réservation supprimée" });
-  else res.status(404).json({ message: "Réservation non trouvée" });
+  await Reservation.deleteOne({
+    _id: req.params.idReservation,
+    catwayNumber: req.params.catwayNumber
+  });
+  res.json({ message: "Réservation supprimée" });
 };
