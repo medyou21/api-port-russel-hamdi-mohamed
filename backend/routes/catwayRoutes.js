@@ -1,11 +1,11 @@
 const express = require("express");
-const { protect } = require("../middlewares/authMiddleware");
-const { getCatways, getCatwayById, createCatway, updateCatway, deleteCatway } = require("../controllers/catwayController");
 const router = express.Router();
+const { getCatways, getCatway, createCatway, updateCatway, deleteCatway } = require("../controllers/catwayController");
 
-router.use(protect);
-
-router.route("/").get(getCatways).post(createCatway);
-router.route("/:id").get(getCatwayById).put(updateCatway).delete(deleteCatway);
+router.get("/", getCatways);
+router.get("/:id", getCatway);
+router.post("/", createCatway);
+router.put("/:id", updateCatway);
+router.delete("/:id", deleteCatway);
 
 module.exports = router;

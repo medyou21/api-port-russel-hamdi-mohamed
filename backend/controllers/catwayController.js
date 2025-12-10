@@ -1,39 +1,34 @@
 const Catway = require("../models/Catway");
 
-// GET /catways
 exports.getCatways = async (req, res) => {
-  const catways = await Catway.find();
-  res.json(catways);
+  res.json(await Catway.find());
 };
 
-// GET /catways/:id
-exports.getCatwayById = async (req, res) => {
+exports.getCatway = async (req, res) => {
   const catway = await Catway.findOne({ catwayNumber: req.params.id });
-  if (catway) res.json(catway);
-  else res.status(404).json({ message: "Catway non trouvé" });
+  if (!catway) return res.status(404).json({ message: "Catway introuvable" });
+  res.json(catway);
 };
 
-// POST /catways
 exports.createCatway = async (req, res) => {
-  const { catwayNumber, catwayType, catwayState } = req.body;
-  const catway = new Catway({ catwayNumber, catwayType, catwayState });
-  await catway.save();
-  res.status(201).json({ message: "Catway créé" });
+  const exists = await Catway.findOne({ catwayNumber: req.body.catwayNumber });
+  if (exists) return res.status(400).json({ message: "Numéro déjà utilisé" });
+
+  res.json(await Catway.create(req.body));
 };
 
-// PUT /catways/:id
 exports.updateCatway = async (req, res) => {
   const catway = await Catway.findOne({ catwayNumber: req.params.id });
-  if (!catway) return res.status(404).json({ message: "Catway non trouvé" });
+  if (!catway) return res.status(404).json({ message: "Non trouvé" });
 
-  catway.catwayState = req.body.catwayState || catway.catwayState;
+  // ON NE MODIFIE PAS LE NUMÉRO NI LE TYPE
+  catway.catwayState = req.body.catwayState ?? catway.catwayState;
+
   await catway.save();
-  res.json({ message: "Catway mis à jour" });
+  res.json(catway);
 };
 
-// DELETE /catways/:id
 exports.deleteCatway = async (req, res) => {
-  const catway = await Catway.findOneAndDelete({ catwayNumber: req.params.id });
-  if (catway) res.json({ message: "Catway supprimé" });
-  else res.status(404).json({ message: "Catway non trouvé" });
+  await Catway.deleteOne({ catwayNumber: req.params.id });
+  res.json({ message: "Catway supprimé" });
 };

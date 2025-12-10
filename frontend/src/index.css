@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f6f7fb;
+    color: #222
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.navbar a {
+    margin-right: 12px;
+    text-decoration: none;
+    color: #333
+}
+
+.nav-user {
+    margin-right: 12px;
+    color: #666
+}
+
+.container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.card {
+    background: #fff;
+    padding: 16px;
+    border-radius: 6px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    margin-bottom: 16px
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.table th,
+.table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left
+}
+
+.center {
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center
+}
+
+input,
+select,
+button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #ddd
+}
+
+button {
+    cursor: pointer;
+    background: #007bff;
+    color: #fff;
+    border: none
+}
+
+button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed
+}
+
+.error {
+    background: #ffdede;
+    color: #900;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px
+}
