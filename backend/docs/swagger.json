@@ -1,0 +1,236 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Port de Plaisance Russell",
+    "version": "1.0.0",
+    "description": "API pour gérer les utilisateurs, catways et réservations du port de plaisance Russell."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api",
+      "description": "Serveur local"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "summary": "Connexion utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Connexion réussie" }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Liste des utilisateurs",
+        "responses": { "200": { "description": "Liste des utilisateurs" } }
+      },
+      "post": {
+        "summary": "Créer un utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["username", "email", "password"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Utilisateur créé" } }
+      }
+    },
+    "/users/{email}": {
+      "get": {
+        "summary": "Détails d'un utilisateur",
+        "parameters": [
+          { "name": "email", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Détails utilisateur" } }
+      },
+      "put": {
+        "summary": "Modifier un utilisateur",
+        "parameters": [
+          { "name": "email", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Utilisateur modifié" } }
+      },
+      "delete": {
+        "summary": "Supprimer un utilisateur",
+        "parameters": [
+          { "name": "email", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Utilisateur supprimé" } }
+      }
+    },
+    "/catways": {
+      "get": { "summary": "Liste des catways", "responses": { "200": { "description": "Liste des catways" } } },
+      "post": {
+        "summary": "Créer un catway",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "catwayNumber": { "type": "string" },
+                  "catwayType": { "type": "string", "enum": ["long", "short"] },
+                  "catwayState": { "type": "string" }
+                },
+                "required": ["catwayNumber", "catwayType", "catwayState"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Catway créé" } }
+      }
+    },
+    "/catways/{catwayNumber}": {
+      "get": {
+        "summary": "Détails d'un catway",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Détails catway" } }
+      },
+      "put": {
+        "summary": "Modifier l'état d'un catway",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": { "catwayState": { "type": "string" } },
+                "required": ["catwayState"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Catway modifié" } }
+      },
+      "delete": {
+        "summary": "Supprimer un catway",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Catway supprimé" } }
+      }
+    },
+    "/catways/{catwayNumber}/reservations": {
+      "get": {
+        "summary": "Liste des réservations d'un catway",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Liste des réservations" } }
+      },
+      "post": {
+        "summary": "Créer une réservation pour un catway",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientName": { "type": "string" },
+                  "boatName": { "type": "string" },
+                  "startDate": { "type": "string", "format": "date" },
+                  "endDate": { "type": "string", "format": "date" }
+                },
+                "required": ["clientName", "boatName", "startDate", "endDate"]
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Réservation créée" } }
+      }
+    },
+    "/catways/{catwayNumber}/reservations/{reservationId}": {
+      "get": {
+        "summary": "Détails d'une réservation",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "reservationId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Détails réservation" } }
+      },
+      "put": {
+        "summary": "Modifier une réservation",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "reservationId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientName": { "type": "string" },
+                  "boatName": { "type": "string" },
+                  "startDate": { "type": "string", "format": "date" },
+                  "endDate": { "type": "string", "format": "date" }
+                },
+                "required": ["clientName", "boatName", "startDate", "endDate"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Réservation modifiée" } }
+      },
+      "delete": {
+        "summary": "Supprimer une réservation",
+        "parameters": [
+          { "name": "catwayNumber", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "reservationId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Réservation supprimée" } }
+      }
+    }
+  }
+}
