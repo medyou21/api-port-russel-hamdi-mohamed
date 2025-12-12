@@ -1,0 +1,51 @@
+<%- include("../../partials/header") %>
+<%- include("../../partials/navbar", { user :user }) %>
+
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">Modifier Réservation</h4>
+    </div>
+    <div class="card-body">
+      <form action="/reservations/edit/<%= reservation._id %>" method="POST">
+        <!-- Ligne 1 : Numéro Catway, Client, Bateau -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="catwayNumber" class="form-label fw-semibold">Numéro du Catway</label>
+            <input type="number" class="form-control" id="catwayNumber" name="catwayNumber" value="<%= reservation.catwayNumber %>" required>
+          </div>
+          <div class="col-md-4">
+            <label for="clientName" class="form-label fw-semibold">Nom du Client</label>
+            <input type="text" class="form-control" id="clientName" name="clientName" value="<%= reservation.clientName %>" required>
+          </div>
+          <div class="col-md-4">
+            <label for="boatName" class="form-label fw-semibold">Nom du Bateau</label>
+            <input type="text" class="form-control" id="boatName" name="boatName" value="<%= reservation.boatName %>" required>
+          </div>
+        </div>
+
+        <!-- Ligne 2 : Dates début et fin -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="startDate" class="form-label fw-semibold">Date de début</label>
+            <input type="date" class="form-control" id="startDate" name="startDate" value="<%= reservation.startDate.toISOString().substring(0,10) %>" required>
+          </div>
+          <div class="col-md-6">
+            <label for="endDate" class="form-label fw-semibold">Date de fin</label>
+            <input type="date" class="form-control" id="endDate" name="endDate" value="<%= reservation.endDate.toISOString().substring(0,10) %>" required>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+          <a href="/reservations/" class="btn btn-outline-secondary btn-lg shadow-sm fw-semibold">
+                        <i class="bi bi-x-circle me-1"></i> Annuler</a>
+          
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include("../../partials/footer") %>

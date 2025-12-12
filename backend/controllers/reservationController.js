@@ -1,42 +1,28 @@
 const Reservation = require("../models/Reservation");
 
-exports.getReservations = async (req, res) => {
-  const reservations = await Reservation.find({ catwayNumber: req.params.catwayNumber });
-  res.json(reservations);
+exports.getAll = async (req, res) => {
+  res.json(await Reservation.find({ catwayNumber: req.params.id }));
 };
 
-exports.getReservation = async (req, res) => {
-  const reservation = await Reservation.findOne({
-    _id: req.params.idReservation,
-    catwayNumber: req.params.catwayNumber
-  });
-  if (!reservation)
-    return res.status(404).json({ message: "Réservation non trouvée" });
-
-  res.json(reservation);
+exports.getOne = async (req, res) => {
+  res.json(await Reservation.findById(req.params.idReservation));
 };
 
-exports.createReservation = async (req, res) => {
-  const reservation = await Reservation.create({
-    ...req.body,
-    catwayNumber: req.params.catwayNumber
-  });
-  res.json(reservation);
+exports.create = async (req, res) => {
+  const newRes = await Reservation.create(req.body);
+  res.json(newRes);
 };
 
-exports.updateReservation = async (req, res) => {
-  const reservation = await Reservation.findOneAndUpdate(
-    { _id: req.params.idReservation, catwayNumber: req.params.catwayNumber },
+exports.update = async (req, res) => {
+  const updated = await Reservation.findByIdAndUpdate(
+    req.params.idReservation,
     req.body,
     { new: true }
   );
-  res.json(reservation);
+  res.json(updated);
 };
 
-exports.deleteReservation = async (req, res) => {
-  await Reservation.deleteOne({
-    _id: req.params.idReservation,
-    catwayNumber: req.params.catwayNumber
-  });
+exports.delete = async (req, res) => {
+  await Reservation.findByIdAndDelete(req.params.idReservation);
   res.json({ message: "Réservation supprimée" });
 };

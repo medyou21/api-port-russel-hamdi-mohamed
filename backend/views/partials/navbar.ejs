@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= user ? '/dashboard' : '/login' %>">Port Russell</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <% if (user) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">Dashboard</a>
+          </li>
+
+          <!-- Users dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="usersDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+              Utilisateurs
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="usersDropdown">
+              <li><a class="dropdown-item" href="/users">Liste des utilisateurs</a></li>
+              <li><a class="dropdown-item" href="/users/create">Créer un utilisateur</a></li>
+            </ul>
+          </li>
+
+          <!-- Catways dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="catwaysDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+              Catways
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="catwaysDropdown">
+              <li><a class="dropdown-item" href="/catways">Liste des Catways</a></li>
+              <li><a class="dropdown-item" href="/catways/create">Créer un Catway</a></li>
+            </ul>
+          </li>
+
+          <!-- Reservations dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="reservationsDropdown" role="button" data-bs-toggle="dropdown"  data-bs-auto-close="outside" aria-expanded="false">
+              Réservations
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="reservationsDropdown">
+              <li><a class="dropdown-item" href="/reservations">Liste des Réservations</a></li>
+              <li><a class="dropdown-item" href="/reservations/create">Créer une Réservation</a></li>
+            </ul>
+          </li>
+        <% } %>
+      </ul>
+
+      <ul class="navbar-nav">
+        <% if (user) { %>
+          <li class="nav-item">
+            <a class="nav-link text-danger" href="/logout">Déconnexion</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Connexion</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

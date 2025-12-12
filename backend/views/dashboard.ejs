@@ -1,0 +1,86 @@
+<%- include("partials/header") %>
+
+<%- include("partials/navbar") %>
+
+
+    <div class="container mt-5">
+
+        <h1 class="mb-4">Tableau de bord</h1>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card p-3 shadow-sm">
+                    <h5>Utilisateur connecté</h5>
+                    <p><b>Email :</b> <%= user.email %></p>
+                    <p><b>Date :</b> <%= date %></p>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card p-3 shadow-sm">
+                    <h5>Graphique : Réservations par Catway</h5>
+                    <canvas id="chartCatways"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm p-3">
+            <h4>Réservations en cours</h4>
+
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Catway</th>
+                        <th>Client</th>
+                        <th>Bateau</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% reservations.forEach(r => { %>
+                        <tr>
+                            <td><%= r.catwayNumber %></td>
+                            <td><%= r.clientName %></td>
+                            <td><%= r.boatName %></td>
+                            <td><%= new Date(r.startDate).toLocaleDateString() %></td>
+                            <td><%= new Date(r.endDate).toLocaleDateString() %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script>
+        // Création de l'objet grouped côté serveur
+        <% let grouped = {}; reservations.forEach(r => { grouped[r.catwayNumber] = (grouped[r.catwayNumber] || 0) + 1; }); %>
+
+        const labels = <%- JSON.stringify(Object.keys(grouped)) %>;
+        const counts = <%- JSON.stringify(Object.values(grouped)) %>;
+
+        const ctx = document.getElementById('chartCatways').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Nombre de réservations",
+                    data: counts,
+                    backgroundColor: "rgba(54, 162, 235, 0.5)",
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                }
+            }
+        });
+    </script>
+
+    
+<%- include("partials/footer") %>

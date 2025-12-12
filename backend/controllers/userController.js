@@ -1,53 +1,39 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-exports.getUsers = async (req, res) => {
-  const users = await User.find();
-  res.json(users);
+exports.getAllUsers = async (req, res) => {
+  res.json(await User.find());
 };
 
 exports.getUser = async (req, res) => {
-  const user = await User.findOne({ email: req.params.email });
-  if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
-  res.json(user);
+  res.json(await User.findOne({ email: req.params.email }));
 };
 
 exports.createUser = async (req, res) => {
   const { username, email, password } = req.body;
 
-  const exists = await User.findOne({ email });
-  if (exists) return res.status(400).json({ message: "Email déjà utilisé" });
-
   const hashed = await bcrypt.hash(password, 10);
 
-  const newUser = await User.create({
-    username,
-    email,
-    password: hashed
-  });
+  const user = await User.create({ username, email, password: hashed });
 
-  res.json(newUser);
+  res.json(user);
 };
 
 exports.updateUser = async (req, res) => {
-  const { username, password } = req.body;
+  const update = req.body;
+  if (update.password)
+    update.password = await bcrypt.hash(update.password, 10);
 
-  const user = await User.findOne({ email: req.params.email });
-  if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
+  const updated = await User.findOneAndUpdate(
+    { email: req.params.email },
+    update,
+    { new: true }
+  );
 
-  user.username = username || user.username;
-
-  if (password) user.password = await bcrypt.hash(password, 10);
-
-  await user.save();
-
-  res.json({ message: "Utilisateur mis à jour", user });
+  res.json(updated);
 };
 
 exports.deleteUser = async (req, res) => {
-  const user = await User.findOne({ email: req.params.email });
-  if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
-
-  await user.deleteOne();
+  await User.findOneAndDelete({ email: req.params.email });
   res.json({ message: "Utilisateur supprimé" });
 };
