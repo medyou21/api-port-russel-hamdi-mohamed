@@ -1,8 +1,23 @@
 <%- include('../../partials/header') %>
 <%- include("../../partials/navbar", { user: user }) %>
 
-
 <div class="container mt-5">
+    <!-- 
+        /**
+         * @page Edit User
+         * @description Page pour modifier un utilisateur existant.
+         * @route GET /users/edit/:id
+         * @param {string} userData.id - ID de l'utilisateur à modifier
+         * @param {string} userData.username - Nom complet de l'utilisateur
+         * @param {string} userData.email - Email de l'utilisateur
+         * @example
+         * {
+         *   "id": "69394d36b355d69648a7f9b1",
+         *   "username": "admin",
+         *   "email": "admin@example.com"
+         * }
+         */
+    -->
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
             Modifier utilisateur

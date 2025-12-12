@@ -3,13 +3,35 @@
 
 <div class="container py-5">
 
+  <!--
+    /**
+     * @page Users List
+     * @description Affiche la liste des utilisateurs avec possibilité de créer, éditer ou supprimer.
+     * @property {Array} users - Liste des utilisateurs récupérée depuis la base de données
+     * @property {Object} user - Utilisateur connecté pour la navbar
+     */
+  -->
+
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
       <h3 class="mb-0">Liste des utilisateurs</h3>
+      <!--
+        /**
+         * @section Header
+         * @description Titre principal de la page utilisateur
+         */
+      -->
     </div>
 
     <div class="card-body">
 
+      <!--
+        /**
+         * @section Controls
+         * @description Barre de contrôle avec total utilisateurs et bouton de création
+         * @property {number} users.length - Nombre total d'utilisateurs
+         */
+      -->
       <div class="d-flex justify-content-between mb-3">
         <p class="text-muted mb-0">Total utilisateurs : <strong><%= users.length %></strong></p>
 
@@ -18,6 +40,12 @@
         </a>
       </div>
 
+      <!--
+        /**
+         * @section Table
+         * @description Tableau listant tous les utilisateurs avec actions
+         */
+      -->
       <div class="table-responsive">
         <table class="table table-striped table-hover align-middle">
           <thead class="table-dark">
@@ -39,14 +67,25 @@
                 <td><%= user.role || 'utilisateur' %></td>
 
                 <td class="text-center">
-
+                  <!--
+                    /**
+                     * @action Éditer
+                     * @description Redirige vers la page d'édition de l'utilisateur
+                     */
+                  -->
                   <a href="/users/edit/<%= user.id %>" class="btn btn-sm btn-outline-primary me-1">
-                                    <i class="bi bi-pencil-square"></i> Éditer
+                    <i class="bi bi-pencil-square"></i> Éditer
                   </a>
-<a href="/users/delete/<%= user.id %>" class="btn btn-sm btn-danger">
-    <i class="bi bi-trash"></i> Supprimer
-</a>
-                  
+
+                  <!--
+                    /**
+                     * @action Supprimer
+                     * @description Supprime l'utilisateur après confirmation
+                     */
+                  -->
+                  <a href="/users/delete/<%= user.id %>" class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash"></i> Supprimer
+                  </a>
 
                 </td>
               </tr>
@@ -59,6 +98,5 @@
   </div>
 
 </div>
-
 
 <%- include("../../partials/footer") %>
