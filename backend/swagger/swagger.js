@@ -1,13 +1,14 @@
-const swaggerJsDoc = require("swagger-jsdoc");
+// backend/swagger/swagger.js
 const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 
 const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Port Russell API",
+      title: "API Port Russell",
       version: "1.0.0",
-      description: "Documentation API complète (Users, Catways, Reservations)",
+      description: "Documentation de l'API pour utilisateurs, catways et réservations"
     },
     servers: [
       {
@@ -15,10 +16,13 @@ const options = {
       },
     ],
   },
-  apis: ["./routes/*.js", "./controllers/*.js"],
+  apis: ["./routes/*.js", "./views/**/*.ejs"], // fichiers avec commentaires JSDoc/Swagger
 };
 
-const swaggerSpec = swaggerJsDoc(options);
+const specs = swaggerJsdoc(options);
 
-module.exports = { swaggerUi, swaggerSpec };
+function setupSwagger(app) {
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+}
 
+module.exports = setupSwagger;

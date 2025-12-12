@@ -3,13 +3,60 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// Page login
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Gestion de l'authentification des utilisateurs
+ */
+
+/**
+ * @swagger
+ * /auth/login:
+ *   get:
+ *     summary: Affiche la page de connexion
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: query
+ *         name: error
+ *         schema:
+ *           type: string
+ *         description: Message d'erreur à afficher sur la page login
+ *     responses:
+ *       200:
+ *         description: Page de connexion affichée
+ */
 router.get("/login", (req, res) => {
   const error = req.query.error || null;
   res.render("login", { error, user: null }); // user null = pas connecté
 });
 
-// POST login
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Authentifie un utilisateur et génère un token JWT
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/x-www-form-urlencoded:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: L'adresse email de l'utilisateur
+ *               password:
+ *                 type: string
+ *                 description: Le mot de passe de l'utilisateur
+ *     responses:
+ *       302:
+ *         description: Redirection vers le dashboard si succès ou vers la page login avec erreur
+*/
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -19,14 +66,7 @@ router.post("/login", async (req, res) => {
       return res.redirect("/login?error=Email");
     }
 
-    // Comparaison du mot de passe
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(isMatch);     // true
-    const hashedPassword = await bcrypt.hash("Admin123", 10);
-    console.log(hashedPassword);
-    console.log(user.password);
-    const isMatch1 = await bcrypt.compare("Admin123", user.password);
-    console.log(isMatch1); 
     if (!isMatch) {
       return res.redirect("/login?error=mot de passe incorrect");
     }

@@ -4,19 +4,23 @@
 <div class="container mt-5 d-flex justify-content-center">
 
     <div class="card shadow-lg" style="max-width: 450px; width: 100%;">
-        
+
+        <!-- Card header -->
         <div class="card-header text-center bg-primary text-white">
             <h4 class="my-2">Connexion</h4>
         </div>
 
         <div class="card-body">
 
+            <!-- Affichage des erreurs -->
             <% if (error) { %>
                 <div class="alert alert-danger text-center"><%= error %></div>
             <% } %>
 
+            <!-- Formulaire de connexion -->
             <form action="/auth/login" method="POST">
 
+                <!-- Email -->
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Email :</label>
                     <input 
@@ -28,6 +32,7 @@
                         required>
                 </div>
 
+                <!-- Password -->
                 <div class="mb-4">
                     <label for="password" class="form-label fw-semibold">Mot de passe :</label>
                     <input 
@@ -39,6 +44,7 @@
                         required>
                 </div>
 
+                <!-- Bouton soumettre -->
                 <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">
                     Se connecter
                 </button>
@@ -50,3 +56,4 @@
 </div>
 
 <%- include("partials/footer") %>
+

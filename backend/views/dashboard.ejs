@@ -3,6 +3,10 @@
 
 <div class="container mt-5">
 
+    <!-- ===================================== -->
+    <!-- Dashboard - Tableau de bord principal -->
+    <!-- ===================================== -->
+
     <!-- Titre principal -->
     <div class="text-center mb-4">
         <h1 class="fw-bold">Tableau de bord</h1>
@@ -19,6 +23,7 @@
                     <h5 class="mb-0">Utilisateur connecté</h5>
                 </div>
                 <div class="card-body">
+                    <!-- JSDoc: Affiche l'utilisateur connecté -->
                     <p><b>Email :</b> <%= user.email %></p>
                     <p><b>Date :</b> <%= date %></p>
                 </div>
@@ -71,14 +76,23 @@
 
 </div>
 
-<!-- =======  SCRIPT CHART JS  ======= -->
+<!-- ===================================== -->
+<!-- Script Chart.js pour graphique -->
+<!-- ===================================== -->
+
 <script>
-    // Créer un objet regroupé côté serveur
+    /**
+     * @description Crée un objet regroupé des réservations par numéro de catway
+     * @type {Object.<string, number>}
+     */
     <% let grouped = {}; reservations.forEach(r => { grouped[r.catwayNumber] = (grouped[r.catwayNumber] || 0) + 1; }); %>
 
+    /** @type {string[]} */
     const labels = <%- JSON.stringify(Object.keys(grouped)) %>;
+    /** @type {number[]} */
     const counts = <%- JSON.stringify(Object.values(grouped)) %>;
 
+    /** @type {CanvasRenderingContext2D} */
     const ctx = document.getElementById('chartCatways').getContext('2d');
 
     new Chart(ctx, {
