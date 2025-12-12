@@ -1,6 +1,21 @@
+<!--
+/**
+ * @file users/create.ejs
+ * @description Page EJS pour créer un nouvel utilisateur
+ * @route POST /users/create
+ * @param {string} username - Nom complet de l'utilisateur
+ * @param {string} email - Email de l'utilisateur
+ * @param {string} password - Mot de passe de l'utilisateur
+ * @returns {HTML} Formulaire de création d'utilisateur
+ * @example
+ * // Exemple d'utilisation
+ * // Soumettre le formulaire avec les champs username, email et password
+ * POST /users/create
+ */
+-->
+
 <%- include('../../partials/header') %>
 <%- include("../../partials/navbar", { user: user }) %>
-
 
 <div class="container mt-5">
     <div class="card shadow-sm">
@@ -10,7 +25,7 @@
         <div class="card-body">
             <form action="/users/create" method="POST">
                 <div class="mb-3">
-                    <label for="name" class="form-label fw-semibold">Nom complet</label>
+                    <label for="username" class="form-label fw-semibold">Nom complet</label>
                     <input type="text" id="username" name="username" class="form-control shadow-sm" placeholder="Nom complet" required>
                 </div>
                 <div class="mb-3">
