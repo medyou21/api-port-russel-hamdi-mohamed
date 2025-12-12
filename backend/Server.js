@@ -1,37 +1,43 @@
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./docs/swagger.json");
 
-// Routes
 const authRoutes = require("./routes/authRoutes");
+const viewRoutes = require("./routes/viewRoutes");
 const userRoutes = require("./routes/userRoutes");
-const catwayRoutes = require("./routes/catwayRoutes");
-const reservationRoutes = require("./routes/reservationRoutes");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 // Middleware
+app.use(cookieParser());///utilisation cookies
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public"))); // si tu veux CSS/JS/images
 
-// Swagger
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// Moteur de templates
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-// Connect DB
+// Connexion DB
 connectDB();
 
 // Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/catways", catwayRoutes);
-app.use("/api/catways/:catwayNumber/reservations", reservationRoutes);
+app.use("/", viewRoutes); // pages EJS
+app.use("/auth", authRoutes); // login POST
+app.use("/api/users", userRoutes);/// user
 
-// Root route
+// Root
 app.get("/", (req, res) => {
-  res.send("Bienvenue à l'API du Port de Plaisance Russell");
+  res.redirect("/login");
+});
+
+// 404
+app.use((req, res) => {
+  res.status(404).send("Page non trouvée");
 });
 
 const PORT = process.env.PORT || 5000;

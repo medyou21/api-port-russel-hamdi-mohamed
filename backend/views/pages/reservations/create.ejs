@@ -1,0 +1,54 @@
+<%- include("../../partials/header") %>
+<%- include("../../partials/navbar", { user :user }) %>
+
+<<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white fw-bold">
+            Créer une Réservation
+        </div>
+        <div class="card-body">
+            <form action="/reservations/create" method="POST">
+                <!-- Ligne 1 : Numéro Catway, Client, Bateau -->
+                <div class="row mb-3">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="catwayNumber" class="form-label fw-semibold">Numéro du Catway</label>
+                        <input type="number" id="catwayNumber" name="catwayNumber" class="form-control shadow-sm" placeholder="Numéro du Catway" required>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="clientName" class="form-label fw-semibold">Nom du Client</label>
+                        <input type="text" id="clientName" name="clientName" class="form-control shadow-sm" placeholder="Nom du client" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="boatName" class="form-label fw-semibold">Nom du Bateau</label>
+                        <input type="text" id="boatName" name="boatName" class="form-control shadow-sm" placeholder="Nom du bateau" required>
+                    </div>
+                </div>
+
+                <!-- Ligne 2 : Dates -->
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="startDate" class="form-label fw-semibold">Date de début</label>
+                        <input type="date" id="startDate" name="startDate" class="form-control shadow-sm" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="endDate" class="form-label fw-semibold">Date de fin</label>
+                        <input type="date" id="endDate" name="endDate" class="form-control shadow-sm" required>
+                    </div>
+                </div>
+
+                <!-- Boutons -->
+                <div class="d-flex justify-content-start gap-2">
+                    <button type="submit" class="btn btn-success btn-lg shadow-sm fw-semibold">
+                        <i class="bi bi-plus-circle me-1"></i> Créer
+                    </button>
+                    <a href="/reservations/list" class="btn btn-outline-secondary btn-lg shadow-sm fw-semibold">
+                        <i class="bi bi-x-circle me-1"></i> Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<%- include("../../partials/footer") %>
