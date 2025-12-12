@@ -44,16 +44,10 @@
                                    class="btn btn-sm btn-outline-primary me-1">
                                     <i class="bi bi-pencil-square"></i> Éditer
                                 </a>
-
-                                <form action="/reservations/delete/<%= r._id %>" 
-                                      method="POST" 
-                                      class="d-inline">
-                                    <button type="submit" 
-                                            class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?')">
-                                        <i class="bi bi-trash"></i> Supprimer
-                                    </button>
-                                </form>
+<a href="/reservations/delete/<%= r._id %>" class="btn btn-sm btn-danger">
+    <i class="bi bi-trash"></i> Supprimer
+</a>
+                               
 
                             </td>
                         </tr>
