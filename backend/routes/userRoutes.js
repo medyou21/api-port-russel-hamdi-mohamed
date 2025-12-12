@@ -1,11 +1,20 @@
 const router = require("express").Router();
-const controller = require("../controllers/userController");
-const auth = require("../middleware/auth");
+const userController = require("../controllers/userController");
+const verifyToken = require("../middleware/authMiddleware");
 
-router.get("/", auth, controller.getAllUsers);
-router.get("/:email", auth, controller.getUser);
-router.post("/", auth, controller.createUser);
-router.put("/:email", auth, controller.updateUser);
-router.delete("/:email", auth, controller.deleteUser);
+// Liste des utilisateurs
+router.get("/", verifyToken, userController.getAllUsers);
+
+// Page création utilisateur
+router.get("/create", verifyToken, userController.showCreateForm);
+router.post("/create", verifyToken, userController.createUser);
+
+// Page édition utilisateur
+router.get("/edit/:id", verifyToken, userController.showEditForm);
+router.post("/edit/:id", verifyToken, userController.updateUser);
+
+// Page suppression utilisateur
+router.get("/delete/:id", verifyToken, userController.showDeleteForm);
+router.post("/delete/:id", verifyToken, userController.deleteUser);
 
 module.exports = router;

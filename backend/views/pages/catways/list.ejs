@@ -49,15 +49,10 @@
                                     <i class="bi bi-pencil-square"></i> Éditer
                                 </a>
 
-                                <form action="/catways/delete/<%= c._id %>" 
-                                      method="POST" 
-                                      class="d-inline">
-                                    <button type="submit" 
-                                            class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Voulez-vous vraiment supprimer ce catway ?')">
-                                        <i class="bi bi-trash"></i> Supprimer
-                                    </button>
-                                </form>
+                                <a href="/catways/delete/<%= c._id %>" class="btn btn-sm btn-danger">
+    <i class="bi bi-trash"></i> Supprimer
+</a>
+
 
                             </td>
 

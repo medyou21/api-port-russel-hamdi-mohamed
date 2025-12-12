@@ -16,13 +16,19 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.redirect("/login?error=Email ou mot de passe incorrect");
+      return res.redirect("/login?error=Email");
     }
 
     // Comparaison du mot de passe
     const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch);     // true
+    const hashedPassword = await bcrypt.hash("Admin123", 10);
+    console.log(hashedPassword);
+    console.log(user.password);
+    const isMatch1 = await bcrypt.compare("Admin123", user.password);
+    console.log(isMatch1); 
     if (!isMatch) {
-      return res.redirect("/login?error=Email ou mot de passe incorrect");
+      return res.redirect("/login?error=mot de passe incorrect");
     }
 
     // Création du token JWT

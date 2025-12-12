@@ -8,10 +8,10 @@
             Modifier utilisateur
         </div>
         <div class="card-body">
-            <form action="/users/edit/<%= userData.email %>" method="POST">
+            <form action="/users/edit/<%= userData.id %>" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label fw-semibold">Nom complet</label>
-                    <input type="text" id="name" name="name" class="form-control shadow-sm" value="<%= userData.name %>" required>
+                    <input type="text" id="username" name="username" class="form-control shadow-sm" value="<%= userData.username %>" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label fw-semibold">Email</label>

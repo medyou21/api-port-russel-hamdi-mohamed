@@ -8,6 +8,9 @@ const authRoutes = require("./routes/authRoutes");
 const viewRoutes = require("./routes/viewRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cookieParser = require("cookie-parser");
+const catwayRoutes = require("./routes/catwayRoutes");
+const reservationsRoutes = require("./routes/reservationRoutes");
+
 
 const app = express();
 
@@ -28,7 +31,10 @@ connectDB();
 // Routes
 app.use("/", viewRoutes); // pages EJS
 app.use("/auth", authRoutes); // login POST
-app.use("/api/users", userRoutes);/// user
+app.use("/users", userRoutes);/// user
+app.use("/catways", catwayRoutes);/// catways
+app.use("/reservations", reservationsRoutes);////reservations
+
 
 // Root
 app.get("/", (req, res) => {

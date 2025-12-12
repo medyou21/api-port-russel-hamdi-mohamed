@@ -53,9 +53,9 @@ router.get("/users/create", verifyToken, (req, res) => {
   res.render("pages/users/create", { user: req.user, title: "Créer un utilisateur" });
 });
 //////users edit
-router.get("/users/edit/:email", verifyToken, async (req, res) => {
+router.get("/users/edit/:id", verifyToken, async (req, res) => {
   try {
-    const userData = await User.findOne({ email: req.params.email });
+    const userData = await User.findById( req.params.id );
     if (!userData) return res.status(404).send("Utilisateur introuvable");
 
     res.render("pages/users/edit", { userData, user: req.user, title: "Modifier utilisateur" });

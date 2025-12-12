@@ -1,32 +1,33 @@
 <%- include("../../partials/header") %>
 <%- include("../../partials/navbar", { user: user }) %>
 
-<div class="container mt-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-header bg-danger text-white">
-            <h4 class="mb-0">Supprimer un Catway</h4>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg border-danger" style="max-width: 500px;">
+        <div class="card-header bg-danger text-white text-center">
+            <h4 class="mb-0">Confirmation de suppression</h4>
         </div>
 
-        <div class="card-body">
+        <div class="card-body text-center">
             <p class="fs-5">
-                Voulez-vous vraiment supprimer le catway 
-                <strong><%= catway.number %></strong> ?
+                Voulez-vous vraiment supprimer le Catway :
+                <strong class="text-danger">#<%= catway.catwayNumber %></strong> ?
             </p>
 
-            <div class="alert alert-warning">
-                ⚠️ Cette action est irréversible.
-            </div>
+            <p>
+                Type : <strong><%= catway.catwayType %></strong><br>
+                État : <strong><%= catway.catwayState %></strong>
+            </p>
 
-            <form action="/catways/delete/<%= catway._id %>" method="POST">
-                <div class="d-flex justify-content-between">
-                    <a href="/catways" class="btn btn-secondary px-4">
-                        Annuler
-                    </a>
-                    <button type="submit" class="btn btn-danger px-4">
+            <div class="mt-4">
+                <form action="/catways/delete/<%= catway._id %>" method="POST">
+                    <button type="submit" class="btn btn-danger px-4 me-2">
                         Supprimer définitivement
                     </button>
-                </div>
-            </form>
+                    <a href="/catways/list" class="btn btn-secondary px-4">
+                        Annuler
+                    </a>
+                </form>
+            </div>
         </div>
     </div>
 </div>

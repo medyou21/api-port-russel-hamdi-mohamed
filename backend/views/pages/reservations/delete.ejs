@@ -1,0 +1,31 @@
+<%- include("../../partials/header") %>
+<%- include("../../partials/navbar", { user }) %>
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg border-danger" style="max-width: 500px;">
+        
+        <div class="card-header bg-danger text-white text-center">
+            <h4>Confirmer la suppression</h4>
+        </div>
+
+        <div class="card-body text-center">
+            <p class="fs-5">
+                Voulez-vous vraiment supprimer la réservation du catway
+                <strong class="text-danger">#<%= reservation.catwayNumber %></strong><br> 
+                pour le client <b><%= reservation.clientName %></b> ?
+            </p>
+
+            <form action="/reservations/delete/<%= reservation._id %>" method="POST">
+                <button type="submit" class="btn btn-danger px-4 me-2">
+                    <i class="bi bi-trash"></i> Supprimer
+                </button>
+                <a href="/reservations/list" class="btn btn-secondary px-4">
+                    Annuler
+                </a>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<%- include("../../partials/footer") %>
