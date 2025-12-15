@@ -38,7 +38,7 @@ L'application dispose d’un tableau de bord, d’une interface web avec EJS, et
 
 ## Installation
 
-1. Cloner le projet :
+## Cloner le projet :
 
 ```bash
 git clone https://github.com/medyou21/api-port-russel-hamdi-mohamed.git
@@ -58,7 +58,7 @@ JWT_EXPIRES_IN=1h
 npm start
 
 ## Structure du projet
-
+```txt
 api-port-russel-hamdi-mohamed/
 │
 ├── backend/
@@ -78,4 +78,11 @@ api-port-russel-hamdi-mohamed/
 
 http://localhost:5000/api-docs
 
+## Compte de démonstration
+Email : admin@example.com
+Mot de passe : admin123
 
+## Auteur
+
+Projet réalisé par Mohamed Hamdi
+Formation Développeur Web / Full Stack
