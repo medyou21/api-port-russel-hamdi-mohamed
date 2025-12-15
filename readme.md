@@ -80,7 +80,7 @@ http://localhost:5000/api-docs
 
 ## Compte de démonstration
 Email : admin@example.com
-Mot de passe : admin123
+Mot de passe : Admin123
 
 ## Auteur
 
