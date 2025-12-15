@@ -1,6 +1,15 @@
 <%- include("../../partials/header") %>
 <%- include("../../partials/navbar", { user }) %>
 
+<%
+/**
+ * @file reservations/delete.ejs
+ * @description
+ * Page de confirmation de suppression d'une réservation.
+ * Cette page demande à l'utilisateur de confirmer avant la suppression définitive.
+ */
+%>
+
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card shadow-lg border-danger" style="max-width: 500px;">
         
@@ -9,12 +18,30 @@
         </div>
 
         <div class="card-body text-center">
+            <%
+            /**
+             * @description
+             * Message de confirmation affichant les informations principales
+             * de la réservation à supprimer.
+             * @property {number} reservation.catwayNumber - Numéro du catway
+             * @property {string} reservation.clientName - Nom du client
+             */
+            %>
             <p class="fs-5">
                 Voulez-vous vraiment supprimer la réservation du catway
                 <strong class="text-danger">#<%= reservation.catwayNumber %></strong><br> 
                 pour le client <b><%= reservation.clientName %></b> ?
             </p>
 
+            <%
+            /**
+             * @description
+             * Formulaire de suppression définitive d'une réservation
+             * @method POST
+             * @route /reservations/delete/{id}
+             * @param {string} reservation._id - Identifiant unique de la réservation
+             */
+            %>
             <form action="/reservations/delete/<%= reservation._id %>" method="POST">
                 <button type="submit" class="btn btn-danger px-4 me-2">
                     <i class="bi bi-trash"></i> Supprimer
