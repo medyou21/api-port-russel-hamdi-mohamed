@@ -1,6 +1,13 @@
 <%- include("../../partials/header") %>
 <%- include("../../partials/navbar", { user: user }) %>
 
+<%
+/**
+ * @file catways/delete.ejs
+ * @description Page de confirmation de suppression définitive d’un Catway
+ */
+%>
+
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card shadow-lg border-danger" style="max-width: 500px;">
         <div class="card-header bg-danger text-white text-center">
@@ -8,6 +15,15 @@
         </div>
 
         <div class="card-body text-center">
+            <%
+            /**
+             * @description Message de confirmation affichant les informations du catway à supprimer
+             * @param {Object} catway - Objet Catway transmis par le contrôleur
+             * @param {number} catway.catwayNumber - Numéro du catway
+             * @param {string} catway.catwayType - Type du catway
+             * @param {string} catway.catwayState - État du catway
+             */
+            %>
             <p class="fs-5">
                 Voulez-vous vraiment supprimer le Catway :
                 <strong class="text-danger">#<%= catway.catwayNumber %></strong> ?
@@ -19,10 +35,19 @@
             </p>
 
             <div class="mt-4">
+                <%
+                /**
+                 * @description Formulaire de suppression définitive d’un catway
+                 * @method POST
+                 * @route /catways/delete/{id}
+                 * @param {string} id - Identifiant MongoDB du catway
+                 */
+                %>
                 <form action="/catways/delete/<%= catway._id %>" method="POST">
                     <button type="submit" class="btn btn-danger px-4 me-2">
                         Supprimer définitivement
                     </button>
+
                     <a href="/catways/list" class="btn btn-secondary px-4">
                         Annuler
                     </a>

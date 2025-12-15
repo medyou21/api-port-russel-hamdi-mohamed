@@ -1,42 +1,89 @@
 <%- include("../../partials/header") %>
 <%- include("../../partials/navbar", { user: user }) %>
 
+<%
+/**
+ * @file catways/create.ejs
+ * @description Page EJS permettant la création d’un nouveau catway
+ */
+%>
+
 <div class="container mt-5">
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white ">
             Créer un Catway
         </div>
+
         <div class="card-body">
+            <%
+            /**
+             * @description Formulaire de création d’un catway
+             * @method POST
+             * @route /catways/create
+             */
+            %>
             <form action="/catways/create" method="POST">
+
                 <div class="row mb-3">
                     <div class="col-md-4">
+                        <%
+                        /**
+                         * @input catwayNumber
+                         * @type {number}
+                         * @description Numéro unique du catway
+                         */
+                        %>
                         <label for="catwayNumber" class="form-label fw-semibold">Numéro</label>
                         <input type="number" id="catwayNumber" name="catwayNumber" class="form-control shadow-sm" required>
                     </div>
+
                     <div class="col-md-4">
+                        <%
+                        /**
+                         * @input catwayType
+                         * @type {string}
+                         * @enum {short,long}
+                         * @description Type du catway (short ou long)
+                         */
+                        %>
                         <label for="catwayType" class="form-label fw-semibold">Type</label>
                         <select id="catwayType" name="catwayType" class="form-select shadow-sm" required>
                             <option value="short">Short</option>
                             <option value="long">Long</option>
                         </select>
                     </div>
+
                     <div class="col-md-4">
+                        <%
+                        /**
+                         * @input catwayState
+                         * @type {string}
+                         * @description État actuel du catway (ex: disponible, en maintenance)
+                         */
+                        %>
                         <label for="catwayState" class="form-label fw-semibold">État</label>
                         <input type="text" id="catwayState" name="catwayState" class="form-control shadow-sm" required>
                     </div>
                 </div>
+
+                <%
+                /**
+                 * @description Boutons d’action du formulaire
+                 */
+                %>
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-success btn-lg shadow-sm fw-semibold">
                         <i class="bi bi-plus-circle me-1"></i> Créer
                     </button>
+
                     <a href="/catways/list" class="btn btn-outline-secondary btn-lg shadow-sm fw-semibold">
                         <i class="bi bi-x-circle me-1"></i> Annuler
                     </a>
                 </div>
+
             </form>
         </div>
     </div>
 </div>
-
 
 <%- include("../../partials/footer") %>
