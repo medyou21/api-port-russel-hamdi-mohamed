@@ -41,17 +41,15 @@ L'application dispose d’un tableau de bord, d’une interface web avec EJS, et
 ## Cloner le projet :
 
 ```bash
-git clone https://github.com/medyou21/api-port-russel-hamdi-mohamed.git
+git clone <url_du_repo>
 cd api-port-russel-hamdi-mohamed
 
 
 ## Installer les dépendances :
 npm install
 ## .env
-PORT=5000
-MONGO_URI=mongodb+srv://Mohamed:Youssef2016@projet-api.fexuybr.mongodb.net/?appName=Projet-API
-JWT_SECRET=monSuperSecretJWT123
-JWT_EXPIRES_IN=1h
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>
+JWT_SECRET=<votre_jwt_secret>
 
 ## Lancer le serveur en local :
 
@@ -68,8 +66,6 @@ api-port-russel-hamdi-mohamed/
 │   ├── routes/        # Routes Express
 │   ├── swagger/       # Swagger configuration
 │   └── views/         # Templates EJS
-│
-├── .env               # Variables d'environnement
 ├── package.json
 └── server.js          # Point d'entrée de l'application
 
@@ -78,9 +74,7 @@ api-port-russel-hamdi-mohamed/
 
 http://localhost:5000/api-docs
 
-## Compte de démonstration
-Email : admin@example.com
-Mot de passe : Admin123
+
 
 ## Auteur
 
